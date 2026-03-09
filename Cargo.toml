@@ -9,7 +9,7 @@ rust-version = "1.89"
 #esp_idf_version = "v5.5"
 
 [dependencies]
-esp-idf-svc = "0.51"   # only supports esp-idf 5.2 and 5.3; falls back to 5.2.3.
+esp-idf-svc = { version = "0.52" }   # only supports esp-idf 5.2 and 5.3; falls back to 5.2.3.
 log = "0.4"
 
 # --- Optional Embassy Integration ---

@@ -2,9 +2,7 @@
 
 A repo created by `cargo generate esp-rs/esp-idf-template cargo` (see [`https://github.com/esp-rs/esp-idf-template`](https://github.com/esp-rs/esp-idf-template).
 
-- Uses not only ESP-IDF 5.3.3
-	- ..but 5.4.2 as well
-- Aiming to run with ESP-IDF v5.5
+..but able to use ESP-IDF 5.4.2, 5.5.3.
 
 
 ## Requirements
@@ -61,14 +59,14 @@ Clear caches, first:
 
 >Note: Build output might prompt you to run `idf.py fullclean`. DON'T! It's not even available. Do the above, instead.
 
+<!-- hidden
 <p />
 
 >Note: Setting the ESP-IDF version *should* be possible also in `Config.toml` (`...`), but the author didn't get that to work. Edit `.cargo/config.toml`, instead.
-
-The repo uses the same version (5.4.2) as `esp-idf-svc` `master` at the time of writing.
+-->
 
 |version|status|comments|
 |---|---|---|
-|5.5.3|❌|fails like 5.4.2|
-|5.4.2|❌|fails the build with:<br />`error[E0277]: the trait bound 'esp_idf_hal::io::EspIOError: embedded_svc::io::Error' is not satisfied  --> /home/ubuntu/.cargo/git/checkouts/esp-idf-svc-3846902cb7f9c731/38c7ed0/src/http/client.rs:571:18`|
-|5.3.3|✅|default of `esp-idf-template` / `esp-idf-svc`|
+|5.5.3|✅||
+|5.4.2|✅|default of `esp-idf-svc` 0.52|
+|5.3.3|✅|default of `esp-idf-template` / `esp-idf-svc` 0.51|

@@ -62,6 +62,7 @@ fn main() -> Result<()> {
         }
     }
 
+    // Needed. E.g. "emits the necessary cfg flags for conditional compilation" (and likely way more..)
     embuild::espidf::sysenv::output();
 
     Ok(())

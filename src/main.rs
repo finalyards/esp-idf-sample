@@ -1,3 +1,5 @@
+#![cfg(esp_idf_version_major = "5")]
+
 fn main() {
     // It is necessary to call this function once. Otherwise, some patches to the runtime
     // implemented by 'esp-idf-sys' might not link properly.
@@ -8,10 +10,11 @@ fn main() {
     // For logging options, see -> https://github.com/esp-rs/esp-idf-svc/blob/master/examples/logging.rs
     //
     // Bind the log crate to the ESP Logging facilities
-    #[cfg(false)]   // 5.4, 5.5
+    #[cfg(not(esp_idf_version_minor = "3"))]   // 5.4, 5.5
     esp_idf_svc::log::init_from_esp_idf();
 
-    esp_idf_svc::log::EspLogger::initialize_default();  // 5.3.3
+    #[cfg(esp_idf_version_minor = "3")]
+    esp_idf_svc::log::EspLogger::initialize_default();  // 5.3
 
     log::info!("Hello, world!");
 }
