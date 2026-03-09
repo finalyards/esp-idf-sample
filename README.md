@@ -2,6 +2,8 @@
 
 A repo created by `cargo generate esp-rs/esp-idf-template cargo` (see [`https://github.com/esp-rs/esp-idf-template`](https://github.com/esp-rs/esp-idf-template).
 
+- Uses not only ESP-IDF 5.3.3
+	- ..but 5.4.2 as well
 - Aiming to run with ESP-IDF v5.5
 
 
@@ -30,21 +32,43 @@ sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv 
 ## Steps
 
 ```
-$ cargo build
+$ cargo build --release
 ```
 
-creates:
-
+<!--
 ```
 $ file target/riscv32imac-esp-espidf/debug/abc
 /home/ubuntu/target/riscv32imac-esp-espidf/debug/abc: ELF 32-bit LSB executable, UCB RISC-V, RVC, soft-float ABI, version 1 (SYSV), statically linked, with debug_info, not stripped
 ```
+-->
 
 ### To flash
 ```
-$ espflash flash --monitor target/riscv32imac-esp-espidf/debug/abc
+$ espflash flash --monitor target/riscv32imac-esp-espidf/release/abc
 [...]
 I (349) abc: Hello, world!
 I (359) main_task: Returned from app_main()
 ```
 
+## Advanced
+
+### Changing esp-idf versions
+
+Clear caches, first:
+
+- `rm -rf ~/.embuild`
+- `cargo clean`
+
+>Note: Build output might prompt you to run `idf.py fullclean`. DON'T! It's not even available. Do the above, instead.
+
+<p />
+
+>Note: Setting the ESP-IDF version *should* be possible also in `Config.toml` (`...`), but the author didn't get that to work. Edit `.cargo/config.toml`, instead.
+
+The repo uses the same version (5.4.2) as `esp-idf-svc` `master` at the time of writing.
+
+|version|status|comments|
+|---|---|---|
+|5.5.3|❌|fails like 5.4.2|
+|5.4.2|❌|fails the build with:<br />`error[E0277]: the trait bound 'esp_idf_hal::io::EspIOError: embedded_svc::io::Error' is not satisfied  --> /home/ubuntu/.cargo/git/checkouts/esp-idf-svc-3846902cb7f9c731/38c7ed0/src/http/client.rs:571:18`|
+|5.3.3|✅|default of `esp-idf-template` / `esp-idf-svc`|

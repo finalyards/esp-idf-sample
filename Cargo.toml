@@ -1,28 +1,15 @@
 [package]
 name = "abc"
-version = "0.1.0"
-edition = "2021"
-resolver = "2"
-rust-version = "1.77"
+version = "0.1.1"
+edition = "2024"
+rust-version = "1.89"
 
-[[bin]]
-name = "abc"
-harness = false # do not use the built-in cargo test harness -> resolve rust-analyzer errors
-
-[profile.release]
-opt-level = "s"
-
-[profile.dev]
-debug = true    # Symbols are nice, and they don't increase the size on Flash
-opt-level = "z"
-
-[features]
-default = []
-
-experimental = ["esp-idf-svc/experimental"]
+# Simply does not work. Leads always to fallback to 5.2.3. Using 'config.toml' env, instead.
+#[package.metadata.esp-idf-sys]
+#esp_idf_version = "v5.5"
 
 [dependencies]
-esp-idf-svc = "0.51"
+esp-idf-svc = "0.51"   # only supports esp-idf 5.2 and 5.3; falls back to 5.2.3.
 log = "0.4"
 
 # --- Optional Embassy Integration ---
@@ -43,4 +30,27 @@ log = "0.4"
 # critical-section = { version = "1.1", features = ["std"], default-features = false }
 
 [build-dependencies]
+anyhow = "1.0"
 embuild = "0.33"
+
+[features]
+default = []
+
+experimental = ["esp-idf-svc/experimental"]
+
+[[bin]]
+name = "abc"
+harness = false # do not use the built-in cargo test harness -> resolve rust-analyzer errors
+
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+debug = true    # Symbols are nice, and they don't increase the size on Flash
+opt-level = "z"
+
+# Allow 'esp-idf' 5.4 and/or 5.5 to be used
+#[patch.crates-io]
+#esp-idf-svc = { git = "https://github.com/esp-rs/esp-idf-svc.git", branch = "master" } # 5.3..5.5
+#esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys.git", branch = "master" }
+#esp-idf-hal = { git = "https://github.com/esp-rs/esp-idf-hal.git", branch = "master" }
