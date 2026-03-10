@@ -41,27 +41,6 @@ fn main() {
         panic!();
     }
 
-    // 'esp-idf-svc' 0.51 falls down to 5.2.3 if it doesn't find the version we wish. This is unwelcome.
-    //  <<
-    //    DEP_ESP_IDF_SVC_EMBUILD_ESP_IDF_PATH=/home/ubuntu/.embuild/espressif/esp-idf/v5.2.3
-    //  <<
-    //
-    // 'esp-idf-svc' 'master' (8-Mar-26) has this, instead:
-    //  <<
-    //    esp_idf_version=v5.5
-    //  <<
-    #[cfg(false)]
-    {
-        const NAME: &str = "DEP_ESP_IDF_SVC_EMBUILD_ESP_IDF_PATH";
-        match env::var(NAME)
-            .expect(format!("env.var '{NAME}' not detected").as_str()) {
-            path if path.ends_with("v5.2.3") => {
-                panic!("ESP-IDF version fallback to: {}", path)
-            }
-            _ => { /*proceed*/ }
-        }
-    }
-
     println!(r#"cargo::rustc-check-cfg=cfg(esp_idf_version_major, values("5"))"#);
     println!(r#"cargo::rustc-check-cfg=cfg(esp_idf_version, values("5.3", "5.4", "5.5"))"#);
 }
