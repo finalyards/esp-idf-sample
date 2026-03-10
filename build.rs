@@ -8,22 +8,22 @@
 * We call GNU 'make' from within the 'build.rs'. This allows us to build in the normal Cargo way,
 * yet benefit from file system dependency trees.
 */
-use anyhow::*;
-
 use std::{
     env,
 };
 
 /*
 */
-fn main() -> Result<()> {
+fn main() {
+    // Needed. E.g. "emits the necessary cfg flags for conditional compilation" (and likely way more..)
+    embuild::espidf::sysenv::output();
 
     // Detect when IDE is running us:
     //  - Rust Rover:
     //      __CFBundleIdentifier=com.jetbrains.rustrover-EAP
     {
         if env::var("__CFBundleIdentifier").is_ok() {
-            return Ok(());  // skip the rest
+            return;  // skip the rest
         }
     }
 
@@ -62,8 +62,6 @@ fn main() -> Result<()> {
         }
     }
 
-    // Needed. E.g. "emits the necessary cfg flags for conditional compilation" (and likely way more..)
-    embuild::espidf::sysenv::output();
-
-    Ok(())
+    println!(r#"cargo::rustc-check-cfg=cfg(esp_idf_version_major, values("5"))"#);
+    println!(r#"cargo::rustc-check-cfg=cfg(esp_idf_version, values("5.3", "5.4", "5.5"))"#);
 }

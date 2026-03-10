@@ -30,7 +30,6 @@ log = "0.4"
 # critical-section = { version = "1.1", features = ["std"], default-features = false }
 
 [build-dependencies]
-anyhow = "1.0"
 embuild = "0.33"
 
 [features]
