@@ -30,8 +30,10 @@ sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv 
 ## Steps
 
 ```
-$ cargo build --release
+$ cargo build --release -vv
 ```
+
+>`-vv` provides more clues.
 
 <!--
 ```
@@ -40,13 +42,33 @@ $ file target/riscv32imac-esp-espidf/debug/abc
 ```
 -->
 
+### Confirm `sdkconfig.default` was followed
+
+```
+$ cat target/riscv32imac-esp-espidf/release/build/esp-idf-sys-df770abcade46a94/out/sdkconfig | grep MAIN_TASK_STACK
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8000
+CONFIG_MAIN_TASK_STACK_SIZE=8000
+```
+
+8000 is, indeed, what we have in `sdkconfig.default`!
+
+
 ### To flash
+
 ```
 $ espflash flash --monitor target/riscv32imac-esp-espidf/release/abc
 [...]
 I (349) abc: Hello, world!
 I (359) main_task: Returned from app_main()
 ```
+
+### To clean up
+
+```
+$ rm -rf ~/.espressif
+$ cargo clean
+```
+
 
 ## Advanced
 

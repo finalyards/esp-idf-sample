@@ -4,9 +4,6 @@
 * Gets run by:
 *   - IDE on host; WRONG FEATURES!!
 *   - 'cargo build' (CLI); correct features
-*
-* We call GNU 'make' from within the 'build.rs'. This allows us to build in the normal Cargo way,
-* yet benefit from file system dependency trees.
 */
 use std::{
     env,
@@ -35,7 +32,7 @@ fn main() {
     }
 
     // DEBUG: Show what we know about the compilation.
-    #[cfg(false)]   // see -> .env.dump
+    #[cfg(false)]
     {
         env::vars().for_each(|(a, b)| { eprintln!("{a}={b}"); });
         panic!();

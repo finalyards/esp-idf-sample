@@ -1,8 +1,6 @@
 #[cfg(not(esp_idf_version_major = "5"))]
 compile_error!("Meant for ESP_IDF 5.3 .. 5.5");
 
-// esp_idf_version: "{major}.{minor}" // always just these two
-
 fn main() {
     // It is necessary to call this function once. Otherwise, some patches to the runtime
     // implemented by 'esp-idf-sys' might not link properly.
