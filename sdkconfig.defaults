@@ -7,11 +7,8 @@ CONFIG_ESP_MAIN_TASK_STACK_SIZE=8000
 
 CONFIG_ESP_WIFI_ENABLED=n
 CONFIG_ESP_WIFI_SOFTAP_SUPPORT=n
-CONFIG_COEX_ENABLED=n
-
-
-
-
+CONFIG_ESP_COEX_ENABLED=n
+    # these don't really matter; they are just defaults.
 
 #---
 # NO LONGER NEEDED since ESP-IDF 5.3 (at least)

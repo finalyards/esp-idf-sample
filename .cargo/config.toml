@@ -11,13 +11,12 @@ build-std = ["std", "panic_abort"]
 
 [env]
 MCU="esp32c6"
-ESP_IDF_VERSION = "v5.5.3"
-#esp_idf_version = "v5.4.2"
-#esp_idf_version = "v5.3.3"
+ESP_IDF_VERSION = "v5.5.4"
 
 ESP_IDF_TOOLS_INSTALL_DIR = "global"
 
 # Need to use these if your 'target' has been placed elsewhere.
 CARGO_WORKSPACE_DIR = { value = "", relative = true }
 
+# Note: These are defaults, not overrides. Only in effect if 'sdkconfig' doesn't already have an entry!
 esp_idf_sdkconfig_defaults = "sdkconfig.defaults"

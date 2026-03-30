@@ -20,7 +20,7 @@ A repo created by `cargo generate esp-rs/esp-idf-template cargo` (see [`https://
 - Rust with:
 
 	```
-	$ cargo install ldproxy
+	$ cargo install --locked ldproxy
 	```
 
 <!--

@@ -4,10 +4,6 @@ version = "0.1.1"
 edition = "2024"
 rust-version = "1.89"
 
-# Simply does not work. Leads always to fallback to 5.2.3. Using 'config.toml' env, instead.
-#[package.metadata.esp-idf-sys]
-#esp_idf_version = "v5.5"
-
 [dependencies]
 esp-idf-svc = { version = "0.52" }
 log = "0.4"
@@ -34,8 +30,6 @@ embuild = "0.33"
 
 [features]
 default = []
-
-experimental = ["esp-idf-svc/experimental"]
 
 [[bin]]
 name = "abc"
