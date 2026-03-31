@@ -89,6 +89,28 @@ Clear caches, first:
 
 |version|status|comments|
 |---|---|---|
-|5.5.3|✅||
+|5.5.4|✅||
 |5.4.2|✅|default of `esp-idf-svc` 0.52|
 |5.3.3|✅|default of `esp-idf-template` / `esp-idf-svc` 0.51|
+
+### Testing with plain `esp-idf-sys`
+
+The author experimented with a couple of setups:
+
+|branch|uses|`std`|comments|
+|---|---|---|---|
+|`main`|`esp-idf-svc`|yes|works|
+|`sys`|`esp-idf-sys`|yes|works|
+|`sys-core`|`esp-idf-sys`|no|does not build: `error: linking with ldproxy failed`|
+
+`esp-idf-svc` is the default platform by `esp-idf-template`, but not all applications require the services it provides. If yours doesn't, you are completely fine using `esp-idf-sys` directly, instead.
+
+Keep `std` around, for `ldproxy` to work.
+
+
+## References
+
+- [`embuild`](https://github.com/esp-rs/embuild) (GitHub)
+
+	Contains the `ldproxy` tool.
+
