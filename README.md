@@ -95,17 +95,39 @@ Clear caches, first:
 
 ### Testing with plain `esp-idf-sys`
 
-The author experimented with a couple of setups:
+The author experimented with some setups, and managed to get a `#![no_std]` set up to work, with `esp-idf-sys`:
 
 |branch|uses|`std`|comments|
 |---|---|---|---|
 |`main`|`esp-idf-svc`|yes|works|
 |`sys`|`esp-idf-sys`|yes|works|
 |`sys-core`|`esp-idf-sys`|no|does not build: `error: linking with ldproxy failed`|
+|`sys-core2`|`esp-idf-sys`|partly|works|
 
-`esp-idf-svc` is the default platform by `esp-idf-template`, but not all applications require the services it provides. If yours doesn't, you are completely fine using `esp-idf-sys` directly, instead.
+The last option is interesting, because it shows how your **application** can be `#![no_std]`, while having `esp-idf-sys` *still* work and launch your code! In that branch, `esp-idf-sys` is without the `"std"` feature, but the runtime has:
 
-Keep `std` around, for `ldproxy` to work.
+```
+build-std = ["std", "panic_abort"]
+```
+
+This seems to do it for `ldproxy`, so that it creates a runnable binary.
+
+**Sizes**
+
+|branch|Total Image Size [B]|
+|---|---|
+|`main`|377 136|
+|`sys`|369 728|
+|`sys-core`|n/a|
+|`sys-core2`|149 600|
+
+Total Image Size from `espflash flash` output.
+
+<!-- e.g. 
+>```
+>App/part. size:    377,136/4,128,768 bytes, 9.13%
+>```
+-->
 
 
 ## References
