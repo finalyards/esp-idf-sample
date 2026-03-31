@@ -10,7 +10,7 @@ mod logging;
 use logging::esp_log_init;   // ties esp-idf-sys logging to 'log'
 
 #[unsafe(no_mangle)]
-pub extern "C" fn app_main() {
+fn main() {
     esp_log_init();
 
     log::info!("Hello, world!");
