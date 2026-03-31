@@ -5,7 +5,7 @@ edition = "2024"
 rust-version = "1.89"
 
 [dependencies]
-esp-idf-svc = { version = "0.52" }
+esp-idf-sys = { version = "0.37" }
 log = "0.4"
 
 # --- Optional Embassy Integration ---
