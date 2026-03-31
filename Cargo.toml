@@ -5,7 +5,7 @@ edition = "2024"
 rust-version = "1.89"
 
 [dependencies]
-esp-idf-sys = { version = "0.37" }
+esp-idf-sys = { version = "0.37", features = ["alloc_handler", "binstart", "panic_handler"], default-features = false }
 log = "0.4"
 
 # --- Optional Embassy Integration ---

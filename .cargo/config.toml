@@ -7,7 +7,7 @@ runner = "espflash flash --monitor"
 rustflags = ["--cfg",  "espidf_time64"] # must be set for ESP-IDF 5.0 and above
 
 [unstable]
-build-std = ["std", "panic_abort"]
+build-std = ["core", "alloc", "panic_abort"]
 
 [env]
 MCU="esp32c6"

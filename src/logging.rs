@@ -13,7 +13,7 @@ use esp_idf_sys::{
     esp_log_level_t_ESP_LOG_INFO
 };
 use log::Level;
-//use alloc::format;
+use alloc::format;
 
 struct EspLogger;
 
