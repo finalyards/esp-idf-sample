@@ -1,9 +1,9 @@
 # esp-idf-sample
 
-A repo created by `cargo generate esp-rs/esp-idf-template cargo` (see [`https://github.com/esp-rs/esp-idf-template`](https://github.com/esp-rs/esp-idf-template).
+A repo created by `cargo generate esp-rs/esp-idf-template cargo` (see <tt><https://github.com/esp-rs/esp-idf-template></tt>).
 
-..but able to use ESP-IDF 5.4.2, 5.5.3.
-
+..but able to use ESP-IDF 5.5.4, 6.0.1.
+<!-- was: 5.4.2, 5.5.3 -->
 
 ## Requirements
 
@@ -33,8 +33,6 @@ sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv 
 $ cargo build --release -vv
 ```
 
->`-vv` provides more clues.
-
 <!--
 ```
 $ file target/riscv32imac-esp-espidf/debug/abc
@@ -45,22 +43,29 @@ $ file target/riscv32imac-esp-espidf/debug/abc
 ### Confirm `sdkconfig.default` was followed
 
 ```
-$ cat target/riscv32imac-esp-espidf/release/build/esp-idf-sys-df770abcade46a94/out/sdkconfig | grep MAIN_TASK_STACK
+$ cat ~/target/riscv32imac-esp-espidf/release/build/esp-idf-sys-df770abcade46a94/out/sdkconfig | grep MAIN_TASK_STACK
 CONFIG_ESP_MAIN_TASK_STACK_SIZE=8000
 CONFIG_MAIN_TASK_STACK_SIZE=8000
 ```
 
 8000 is, indeed, what we have in `sdkconfig.default`!
 
+>Note: The author has a setup where an account-global `~/target` is used. Yours may be local to the work folder. To find the right file, use: 
+>
+>```
+>$ find ~/target -name sdkconfig
+>```
 
 ### To flash
 
 ```
-$ espflash flash --monitor target/riscv32imac-esp-espidf/release/abc
+$ espflash flash --monitor ~/target/riscv32imac-esp-espidf/release/abc
 [...]
 I (349) abc: Hello, world!
 I (359) main_task: Returned from app_main()
 ```
+
+>Press Ctrl-C to end the process.
 
 ### To clean up
 
@@ -76,10 +81,13 @@ $ cargo clean
 
 Clear caches, first:
 
-- `rm -rf ~/.embuild`
 - `cargo clean`
 
 >Note: Build output might prompt you to run `idf.py fullclean`. DON'T! It's not even available. Do the above, instead.
+
+<p />
+
+>Note: You likely don't need to `rm -rf ~/.espressif`: different ESP-IDF versions vacate different paths within it, and seem to be able to co-exist. If in doubt, wipe it!
 
 <!-- hidden
 <p />
@@ -89,13 +97,17 @@ Clear caches, first:
 
 |version|status|comments|
 |---|---|---|
-|5.5.4|✅||
-|5.4.2|✅|default of `esp-idf-svc` 0.52|
-|5.3.3|✅|default of `esp-idf-template` / `esp-idf-svc` 0.51|
+|5.5.4|✅|works|
+|6.0.1|👺|fails|
+
+<!-- older versions; not actively tested any more (since Jun'26)
+|5.4.2|♻️|default of `esp-idf-svc` 0.52|
+|5.3.3|♻️|default of `esp-idf-template` / `esp-idf-svc` 0.51|
+-->
 
 ### Testing with plain `esp-idf-sys`
 
-The author experimented with some setups, and managed to get a `#![no_std]` set up to work, with `esp-idf-sys`:
+The author experimented with some setups, and managed to get a `#![no_std]` set up to work, with `esp-idf-sys` <sup>`|1|`</sup>:
 
 |branch|uses|`std`|comments|
 |---|---|---|---|
@@ -103,6 +115,12 @@ The author experimented with some setups, and managed to get a `#![no_std]` set 
 |`sys`|`esp-idf-sys`|yes|works|
 |`sys-core`|`esp-idf-sys`|no|does not build: `error: linking with ldproxy failed`|
 |`sys-core2`|`esp-idf-sys`|partly|works|
+
+<small>
+`|1|`: This was with version 5.5.4.
+</small>
+
+>NOTE: The author has since moved to full `std` (and `esp-idf-svc`) in his application level use of ESP-IDF. The non-main branches are likely going to be left behind.
 
 The last option is interesting, because it shows how your **application** can be `#![no_std]`, while having `esp-idf-sys` *still* work and launch your code! In that branch, `esp-idf-sys` is without the `"std"` feature, but the runtime has:
 

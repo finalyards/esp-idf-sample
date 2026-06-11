@@ -1,6 +1,6 @@
 [package]
 name = "abc"
-version = "0.1.1"
+version = "0.2.0"
 edition = "2024"
 rust-version = "1.89"
 
@@ -9,21 +9,18 @@ esp-idf-svc = { version = "0.52" }
 log = "0.4"
 
 # --- Optional Embassy Integration ---
-# esp-idf-svc = { version = "0.51", features = ["critical-section", "embassy-time-driver", "embassy-sync"] }
-
-# If you enable embassy-time-driver, you MUST also add one of:
+# esp-idf-svc = { version = "0.52", features = ["native", "embassy-time-driver", "alloc"] }
 
 # a) Standalone Embassy libs ( embassy-time, embassy-sync etc.) with a foreign async runtime:
-# embassy-time = { version = "0.4.0", features = ["generic-queue-8"] } # NOTE: any generic-queue variant will work
+# embassy-time = { version = "0.5", features = ["log", "generic-queue-8"] } # NOTE: any generic-queue variant will work
 
 # b) With embassy-executor:
-# embassy-executor = { version = "0.7", features = ["executor-thread", "arch-std"] }
+# embassy-executor = { version = "0.10", features = ["executor-thread", "platform-std"] }
+
+# NOTE!!! This comment was edited 11-Jun-26, NOT TRYING THINGS OUT. PLEASE CHECK THE COMMIT BEFORE IF YOU NEED TO USE
+#       the more exotic combinations!  Sorry for the mess.
 
 # NOTE: if you use embassy-time with embassy-executor you don't need the generic-queue-8 feature
-
-# --- Temporary workaround for embassy-executor < 0.8 ---
-# esp-idf-svc = { version = "0.51", features = ["embassy-time-driver", "embassy-sync"] }
-# critical-section = { version = "1.1", features = ["std"], default-features = false }
 
 [build-dependencies]
 embuild = "0.33"
@@ -38,6 +35,10 @@ harness = false # do not use the built-in cargo test harness -> resolve rust-ana
 [profile.release]
 opt-level = "s"
 
-[profile.dev]
-debug = true    # Symbols are nice, and they don't increase the size on Flash
-opt-level = "z"
+#r [profile.dev]
+#r debug = true    # Symbols are nice, and they don't increase the size on Flash
+#r opt-level = "z"
+
+# Needed for https://github.com/esp-rs/embuild/issues/105 (using ESP-IDF 6.0.1)
+[patch.crates-io]
+embuild = { git = "https://github.com/esp-rs/embuild" }

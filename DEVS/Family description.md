@@ -4,9 +4,9 @@
 
 	..has the best description for what the roles of `esp-idf-svc`, `esp-idf-sys`, `embuild` etc. are
 	
-	In short, they are *so close to each other* that the author considered a monorepo, back in 2024. The same arguments still apply.
+	In short, they are *so close to each other* that the author (of those) considered a monorepo, back in 2024. The same arguments still apply.
 
-This clarified the author's mind on these things.
+This clarified this author's mind on these things.
 
 The `esp-idf-*` **work together** instead of merely dependening on each other.
 
@@ -16,5 +16,4 @@ While `@ivmarkov` still doesn't provide facts to back this claim (this author ca
 
 >”In retrospective - we could've renamed esp-idf-svc to just esp-idf […]”
 
-i.e. it is the flag bearer, not unnecessarily layers above `esp-idf-sys` (or... is it? 😉).
-
+i.e. it is the flag bearer. However, especially when making libraries, also depending on `esp-idf-sys` often has its place.

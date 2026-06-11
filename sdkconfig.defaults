@@ -1,17 +1,19 @@
+#
+# sdkconfig.defaults
+#
+# WARN! If you misspell a config (or use one you only dream existed), ESP-IDF build chain will **warn**, but not stop
+#     the build! Keep an eye on the build output!!
+#
+#       ^-- this is understandable in the way that the config(s) are intended to be worked on using 'menuconfig',
+#           not by manual edits.
+
 # Rust often needs a bit of an extra main task stack size compared to C (the default is 3K)
 CONFIG_ESP_MAIN_TASK_STACK_SIZE=8000
 
-# Use this to set FreeRTOS kernel tick frequency to 1000 Hz (100 Hz by default).
-# This allows to use 1 ms granularity for thread sleeps (10 ms by default).
+# 1 ms granularity for (FreeRTOS) thread sleeps (10 ms by default).
 #CONFIG_FREERTOS_HZ=1000
 
 CONFIG_ESP_WIFI_ENABLED=n
 CONFIG_ESP_WIFI_SOFTAP_SUPPORT=n
 CONFIG_ESP_COEX_ENABLED=n
     # these don't really matter; they are just defaults.
-
-#---
-# NO LONGER NEEDED since ESP-IDF 5.3 (at least)
-#|CONFIG_MBEDTLS_CERTIFICATE_BUNDLE=n
-#|CONFIG_MBEDTLS_CERTIFICATE_BUNDLE_DEFAULT_FULL=n
-
