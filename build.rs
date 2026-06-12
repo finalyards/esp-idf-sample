@@ -38,6 +38,6 @@ fn main() {
         panic!();
     }
 
-    println!(r#"cargo::rustc-check-cfg=cfg(esp_idf_version_major, values("5"))"#);
-    println!(r#"cargo::rustc-check-cfg=cfg(esp_idf_version, values("5.3", "5.4", "5.5"))"#);
+    //println!(r#"cargo::rustc-check-cfg=cfg(esp_idf_version_major, values("5"))"#);
+    //println!(r#"cargo::rustc-check-cfg=cfg(esp_idf_version, values("5.3", "5.4", "5.5"))"#);
 }

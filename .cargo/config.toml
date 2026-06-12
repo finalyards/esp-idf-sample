@@ -11,8 +11,8 @@ build-std = ["std", "panic_abort"]
 
 [env]
 MCU="esp32c6"
-ESP_IDF_VERSION = "v5.5.4"
-#ESP_IDF_VERSION = "v6.0.1"
+#ESP_IDF_VERSION = "v5.5.4"
+ESP_IDF_VERSION = "v6.0.1"
 
 ESP_IDF_TOOLS_INSTALL_DIR = "global"
     # "out":        '{cargo output}/espressif'

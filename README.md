@@ -40,7 +40,7 @@ $ file target/riscv32imac-esp-espidf/debug/abc
 ```
 -->
 
-### Confirm `sdkconfig.default` was followed
+### Confirm `sdkconfig.defaults` was followed
 
 ```
 $ cat ~/target/riscv32imac-esp-espidf/release/build/esp-idf-sys-df770abcade46a94/out/sdkconfig | grep MAIN_TASK_STACK
@@ -48,7 +48,7 @@ CONFIG_ESP_MAIN_TASK_STACK_SIZE=8000
 CONFIG_MAIN_TASK_STACK_SIZE=8000
 ```
 
-8000 is, indeed, what we have in `sdkconfig.default`!
+8000 is, indeed, what we have in `sdkconfig.defaults`!
 
 >Note: The author has a setup where an account-global `~/target` is used. Yours may be local to the work folder. To find the right file, use: 
 >
@@ -98,7 +98,7 @@ Clear caches, first:
 |version|status|comments|
 |---|---|---|
 |5.5.4|✅|works|
-|6.0.1|👺|fails|
+|6.0.1|✅|works|
 
 <!-- older versions; not actively tested any more (since Jun'26)
 |5.4.2|♻️|default of `esp-idf-svc` 0.52|
